@@ -1,6 +1,25 @@
 @DemoApp_HostAddress = http://localhost:5191
 
-GET {{DemoApp_HostAddress}}/weatherforecast/
+GET {{DemoApp_HostAddress}}/account/balance
+Accept: application/json
+
+###
+
+POST {{DemoApp_HostAddress}}/account/deposit
+Content-Type: application/json
+
+{ "amount": 100 }
+
+###
+
+POST {{DemoApp_HostAddress}}/account/withdraw
+Content-Type: application/json
+
+{ "amount": 40 }
+
+###
+
+GET {{DemoApp_HostAddress}}/account/transactions
 Accept: application/json
 
 ###
