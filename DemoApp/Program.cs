@@ -36,4 +36,13 @@ account.MapPost("/withdraw", (AmountRequest request) =>
         : Results.Ok(new { balance });
 });
 
+account.MapPost("/deposits/batch", (decimal[] amounts) =>
+{
+    if (amounts == null || amounts.Length == 0 || amounts.Length > 20)
+        return Results.BadRequest("Invalid batch.");
+
+    var newBalance = Account.BatchDeposit(amounts);
+    return Results.Ok(new { balance = newBalance });
+});
+
 app.Run();

@@ -23,7 +23,6 @@ public static class Account
         }
     }
 
-    // Returns null when funds are insufficient.
     public static decimal? Withdraw(decimal amount)
     {
         lock (Lock)
@@ -38,5 +37,18 @@ public static class Account
     public static IReadOnlyList<Transaction> GetTransactions()
     {
         lock (Lock) return Transactions.ToArray();
+    }
+
+    public static decimal BatchDeposit(decimal[] amounts)
+    {
+        lock (Lock)
+        {
+            decimal newBalance = _balance;
+            foreach (var amount in amounts)
+            {
+                newBalance = Deposit(amount);
+            }
+            return newBalance;
+        }
     }
 }
