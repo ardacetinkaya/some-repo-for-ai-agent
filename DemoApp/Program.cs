@@ -15,7 +15,16 @@ var account = app.MapGroup("/account");
 
 account.MapGet("/balance", () => Results.Ok(new { balance = Account.Balance }));
 
-account.MapGet("/transactions", () => Results.Ok(Account.GetTransactions()));
+account.MapGet("/transactions", (string? type) =>
+{
+    if (type!= null && (type.ToLower()!= "deposit" && type.ToLower()!= "withdrawal"))
+        return Results.StatusCode(400, "Invalid type");
+
+    var filteredTransactions = Account.GetTransactions().Where(t =>
+        (type == null || (type.ToLower() == "deposit" && t.Amount > 0) || (type.ToLower() == "withdrawal" && t.Amount < 0)));
+
+    return Results.Ok(filteredTransactions);
+});
 
 account.MapPost("/deposit", (AmountRequest request) =>
 {
