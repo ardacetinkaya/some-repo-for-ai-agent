@@ -23,3 +23,9 @@ GET {{DemoApp_HostAddress}}/account/transactions
 Accept: application/json
 
 ###
+GET {{DemoApp_HostAddress}}/account/transactions?type=deposit
+Accept: application/json
+
+###
+GET {{DemoApp_HostAddress}}/account/transactions?type=withdrawal
+Accept: application/json
