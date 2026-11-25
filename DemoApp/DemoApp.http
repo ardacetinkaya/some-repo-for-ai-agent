@@ -23,3 +23,20 @@ GET {{DemoApp_HostAddress}}/account/transactions
 Accept: application/json
 
 ###
+
+POST {{DemoApp_HostAddress}}/account/deposits/batch
+Content-Type: application/json
+
+{ "amounts": [100, 200, 300] }
+
+###
+
+POST {{DemoApp_HostAddress}}/account/deposits/batch
+Content-Type: application/json
+
+{ "amounts": [100, 0, 300] }
+
+###
+
+GET {{DemoApp_HostAddress}}/account/balance
+Accept: application/json
